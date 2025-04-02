@@ -41,7 +41,7 @@ function ensureAudioLoaded(audio) {
 }
 
 // Load audio files
-Promise.all([ensureAudioLoaded(winSound), ensureAudioLoaded(drawSound), ensureAudioLoaded(clickSound)])
+Promise.all([ensureAudioLoaded(winSound), ensureAudioLoaded(clickSound)])
     .catch(error => console.error('Error loading audio:', error));
 
 function stopAllSounds() {
@@ -125,7 +125,7 @@ function handleCellClick(clickedCellEvent) {
     }
 
     if (checkDraw()) {
-        playSound(drawSound);
+        //playSound(drawSound);
         statusDisplay.textContent = 'تعادل!';
         gameActive = false;
         return;
