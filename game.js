@@ -47,8 +47,8 @@ Promise.all([ensureAudioLoaded(winSound), ensureAudioLoaded(drawSound), ensureAu
 function stopAllSounds() {
     winSound.pause();
     winSound.currentTime = 0;
-    drawSound.pause();
-    drawSound.currentTime = 0;
+    //drawSound.pause();
+    //drawSound.currentTime = 0;
     clickSound.pause();
     clickSound.currentTime = 0;
 }
