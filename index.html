@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة اكس او - عزام و بابا</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .welcome-header {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a4a5e;
+            color: white;
+            padding: 20px;
+        }
+
+        .game-container {
+            text-align: center;
+        }
+
+        .players {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 40px 0;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .player img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            margin-bottom: 10px;
+        }
+
+        .player.active img {
+            border-color: #4CAF50;
+            box-shadow: 0 0 15px #4CAF50;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .cell {
+            width: 100%;
+            aspect-ratio: 1;
+            max-width: 100px;
+            max-height: 100px;
+            background: #ffffff;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .cell img {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cell:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+
+        .controls {
+            margin-top: 20px;
+           display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button i {
+            font-size: 18px;
+        }
+
+        button:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .status {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .winner-animation {
+            animation: winner 1s ease infinite;
+        }
+
+        @media (max-width: 600px) {
+            .welcome-header {
+                font-size: 2rem;
+            }
+
+            .players {
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .player img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .controls {
+                flex-direction: row;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .status {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .welcome-header {
+                font-size: 1.8rem;
+            }
+
+            .cell img {
+                width: 90%;
+                height: 90%;
+            }
+        }
+
+        @keyframes winner {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .win-counter {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="welcome-header">لعبة عزام و بابا</h1>
+        <div class="players">
+            <div class="player" id="player1">
+                <img src="azzam.jpg" alt="عزام">
+                <h3>عزام</h3>
+                <div class="win-counter" id="player1-wins">0</div>
+            </div>
+            <div class="player" id="player2">
+                <img src="baba.jpg" alt="بابا">
+                <h3>بابا</h3>
+                <div class="win-counter" id="player2-wins">0</div>
+            </div>
+        </div>
+        <div class="status" id="status"></div>
+        <div class="board" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+
+        <div class="controls">
+            <button id="startBtn"><img src="fa-play.svg" alt="play" style="width: 18px; height: 18px; filter: invert(1);"></button>
+            <button id="retryBtn"><img src="fa-redo.svg" alt="retry" style="width: 18px; height: 18px; filter: invert(1);"></button>
+            <button id="newGameBtn"><img src="fa-plus.svg" alt="new game" style="width: 18px; height: 18px; filter: invert(1);"></button>
+        </div>
+
+        
+    </div>
+
+    <audio id="winSound" src="./sounds/win.wav" preload="auto"></audio>
+    <audio id="drawSound" src="./sounds/draw.wav" preload="auto"></audio>
+
+    <script src="game.js"></script>
+</body>
+</html>
