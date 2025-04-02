@@ -24,7 +24,7 @@ const clickSound = new Audio('select1.wav');
 
 // Configure audio elements
 winSound.preload = 'auto';
-drawSound.preload = 'auto';
+//drawSound.preload = 'auto';
 clickSound.preload = 'auto';
 
 // Function to ensure audio is loaded
