@@ -19,7 +19,7 @@ const newGameBtn = document.getElementById('newGameBtn');
 const player1 = document.getElementById('player1');
 const player2 = document.getElementById('player2');
 const winSound = new Audio('win1.wav');
-const drawSound = new Audio('draw.wav');
+//const drawSound = new Audio('draw.wav');
 const clickSound = new Audio('select1.wav');
 
 // Configure audio elements
